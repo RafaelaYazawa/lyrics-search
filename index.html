@@ -7,6 +7,9 @@
         <meta name="color-scheme" content="light dark">
         <!-- CSS -->
         <link rel="stylesheet" href="style.css">
+        <!-- Axios -->
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
         <title>Music Lyrics Search</title>
     </head>
 
@@ -17,22 +20,21 @@
             <form method="get" class="form">
 
                 <div class="input-wrapper">
-                    <input type="search" name="q" placeholder="Search an artist.." class="search-bar">
+                    <input type="search" name="q" placeholder="Search a song.." class="search-bar">
 
-                    <ul class="hidden suggestions">
-                        <li>test</li>
-                        <li>test</li>
-                        <li>test</li>
-                        <li>test</li>
+                    <ul class="hidden suggestions-list">
                     </ul>
                 </div>
-
-                <button type="submit" class="search-btn">Search</button>
-
             </form>
 
+
+            <div class="lyrics-container">
+            </div>
         </div>
 
+
     </body>
+
+    <script src="api.js"></script>
 
 </html>
