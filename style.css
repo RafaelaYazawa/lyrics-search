@@ -15,6 +15,7 @@ body {
 h1 {
   font-size: 2.5rem;
   text-align: center;
+  color: #343434;
 }
 
 .form {
@@ -66,21 +67,40 @@ h1 {
   border-bottom: #545353 0.1rem solid;
 }
 
+.lyrics-container {
+  margin: 0;
+  padding: 1.5rem;
+  text-align: center;
+}
+
 @media (prefers-color-scheme: dark) {
   body {
     background-image: linear-gradient(
       to right,
-      rgb(34, 23, 86),
-      rgb(79, 26, 107),
-      rgb(121, 30, 121)
+      rgb(72, 60, 130),
+      rgb(114, 71, 137),
+      rgb(143, 65, 143)
     );
   }
 
+  h1 {
+    color: aliceblue;
+  }
+
+  .search-bar {
+    background: #585858;
+    color: rgb(240, 248, 255);
+  }
+
+  .search-bar::placeholder {
+    color: rgb(240, 248, 255);
+  }
+
   .suggestions-list {
-    background: #444;
+    background: #585858;
   }
 
   .suggestions-list li {
-    border-bottom: #545353 0.1rem solid;
+    border-bottom: #9c9c9c 0.1rem solid;
   }
 }
