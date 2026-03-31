@@ -35,7 +35,7 @@ function suggestionsRendering(songs) {
 
   songs.forEach((song) => {
     const li = document.createElement("li");
-    li.textContent = `"${song.title}" by ${song.artist.name}`;
+    li.textContent = `${song.title} by ${song.artist.name}`;
     suggestionsList.appendChild(li);
   });
 }
@@ -49,3 +49,27 @@ async function getApiData(url) {
     return null;
   }
 }
+
+suggestionsList.addEventListener("click", async (e) => {
+  e.preventDefault();
+  const [title, artist] = e.target.textContent.split(" by");
+
+  const lyricsUrl = `https://api.lyrics.ovh/v1/${artist}/${title}`;
+
+  clearSuggestions();
+  lyricsContainer.innerHTML = "<p>Loading lyrics...</p>";
+
+  const data = await getApiData(lyricsUrl);
+  if (!data || !data.lyrics || data.error) {
+    clearSuggestions();
+    setTimeout(() => {
+      lyricsContainer.innerHTML = "<p>Sorry... no lyrics match found.</p>";
+    }, 1000);
+    return;
+  }
+
+  console.log(data.lyrics);
+
+  lyricsContainer.innerHTML = `<pre>${data.lyrics}</pre>`;
+  suggestionsList.classList.add("hidden");
+});
