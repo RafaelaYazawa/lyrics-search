@@ -49,9 +49,7 @@ function suggestionsRendering(songs) {
 
 async function getApiData(url) {
   try {
-    const response = await axios.get(url, {
-      timeout: 3000,
-    });
+    const response = await axios.get(url);
     return response.data;
   } catch (error) {
     console.error("Error fetching api data: ", error);
