@@ -2,6 +2,7 @@ const input = document.querySelector(".search-bar");
 const suggestionsList = document.querySelector(".suggestions-list");
 
 const lyricsContainer = document.querySelector(".lyrics-container");
+const songMap = new WeakMap();
 
 input.addEventListener("input", async (e) => {
   const searchTerm = input.value.trim();
@@ -26,7 +27,11 @@ function clearSuggestions() {
 
 function suggestionsRendering(songs) {
   if (!songs || songs.length === 0) {
-    clearSuggestions();
+    const noResultsP = document.createElement("p");
+    noResultsP.style.padding = "0 0.5rem";
+    noResultsP.textContent = "No song or artist were found.";
+    suggestionsList.innerHTML = "";
+    suggestionsList.appendChild(noResultsP);
     return;
   }
 
@@ -36,13 +41,17 @@ function suggestionsRendering(songs) {
   songs.forEach((song) => {
     const li = document.createElement("li");
     li.textContent = `${song.title} by ${song.artist.name}`;
+
+    songMap.set(li, song);
     suggestionsList.appendChild(li);
   });
 }
 
 async function getApiData(url) {
   try {
-    const response = await axios.get(url);
+    const response = await axios.get(url, {
+      timeout: 3000,
+    });
     return response.data;
   } catch (error) {
     console.error("Error fetching api data: ", error);
@@ -52,9 +61,10 @@ async function getApiData(url) {
 
 suggestionsList.addEventListener("click", async (e) => {
   e.preventDefault();
-  const [title, artist] = e.target.textContent.split(" by");
+  const song = songMap.get(e.target);
+  if (!song) return;
 
-  const lyricsUrl = `https://api.lyrics.ovh/v1/${artist}/${title}`;
+  const lyricsUrl = `https://api.lyrics.ovh/v1/${encodeURIComponent(song.artist.name)}/${encodeURIComponent(song.title)}`;
 
   clearSuggestions();
   lyricsContainer.innerHTML = "<p>Loading lyrics...</p>";
@@ -62,9 +72,7 @@ suggestionsList.addEventListener("click", async (e) => {
   const data = await getApiData(lyricsUrl);
   if (!data || !data.lyrics || data.error) {
     clearSuggestions();
-    setTimeout(() => {
-      lyricsContainer.innerHTML = "<p>Sorry... no lyrics match found.</p>";
-    }, 1000);
+    lyricsContainer.innerHTML = "<p>Sorry... no lyrics match found.</p>";
     return;
   }
 
