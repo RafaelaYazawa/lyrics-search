@@ -38,6 +38,7 @@ h1 {
   font-size: 1rem;
   border-radius: 0.5rem 0.3rem;
   position: relative;
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 .hidden {
@@ -53,7 +54,7 @@ h1 {
   top: 100%;
   left: 0;
   width: 100%;
-  background: aliceblue;
+  background: rgba(255, 255, 255, 0.8);
   list-style: none;
   margin: 0 auto;
   border-radius: 0.3rem;
@@ -68,9 +69,14 @@ h1 {
 }
 
 .lyrics-container {
-  margin: 0;
+  margin: 0 auto;
+  max-width: 600px;
   padding: 1.5rem;
   text-align: center;
+}
+
+.lyrics-container pre {
+  line-height: 1.6;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -102,5 +108,10 @@ h1 {
 
   .suggestions-list li {
     border-bottom: #9c9c9c 0.1rem solid;
+  }
+
+  .lyrics-container pre {
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
   }
 }
