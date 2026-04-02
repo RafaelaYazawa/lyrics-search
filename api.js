@@ -4,7 +4,17 @@ const suggestionsList = document.querySelector(".suggestions-list");
 const lyricsContainer = document.querySelector(".lyrics-container");
 const songMap = new WeakMap();
 
-input.addEventListener("input", async (e) => {
+function debounce(func, timeout = 300) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func.apply(this, args);
+    }, timeout);
+  };
+}
+
+async function handleSearch() {
   const searchTerm = input.value.trim();
   if (!searchTerm) {
     clearSuggestions();
@@ -18,7 +28,10 @@ input.addEventListener("input", async (e) => {
   const songs = data.data.slice(0, 10);
 
   suggestionsRendering(songs);
-});
+}
+
+const debouncedSearch = debounce(handleSearch, 300);
+input.addEventListener("input", debouncedSearch);
 
 function clearSuggestions() {
   suggestionsList.innerHTML = "";
