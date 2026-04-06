@@ -20,9 +20,11 @@
             <form method="get" class="form">
 
                 <div class="input-wrapper">
-                    <input type="search" name="q" placeholder="Search a song.." class="search-bar">
+                    <input type="search" name="q" placeholder="Search a song or artist..." class="search-bar" autofocus
+                        autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false"
+                        aria-controls="suggestions">
 
-                    <ul class="hidden suggestions-list">
+                    <ul class="hidden suggestions-list" role="listbox" id="suggestions">
                     </ul>
                 </div>
             </form>
@@ -32,9 +34,8 @@
             </div>
         </div>
 
-
     </body>
 
-    <script src="api.js"></script>
+    <script type="module" src="main.js"></script>
 
 </html>
