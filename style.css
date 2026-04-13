@@ -77,6 +77,35 @@ h1 {
 
 .lyrics-container pre {
   line-height: 1.6;
+  /* white-space: break-spaces; */
+  font-size: larger;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 5px solid rgba(0, 0, 0, 0.3);
+  border-bottom-color: #222222;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @media (prefers-color-scheme: dark) {
