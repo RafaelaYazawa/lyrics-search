@@ -3,7 +3,7 @@ import { getApiData } from "./api.js";
 
 const input = document.querySelector(".search-bar");
 const suggestionsList = document.querySelector(".suggestions-list");
-const lyricsContainer = document.querySelector(".lyrics-container");
+const lyricsContainer = document.querySelector(".lyrics");
 const songMap = new WeakMap();
 
 async function handleSearch() {
@@ -35,17 +35,22 @@ suggestionsList.addEventListener("click", async (e) => {
   const lyricsUrl = `https://api.lyrics.ovh/v1/${encodeURIComponent(song.artist.name)}/${encodeURIComponent(song.title)}`;
 
   clearSuggestions(suggestionsList);
-  lyricsContainer.innerHTML = "<p>Loading lyrics...</p>";
+  lyricsContainer.innerHTML = `
+    <div class="loading">
+      <span class="spinner"></span>
+      <p>Loading lyrics...</p>
+    </div>
+  `;
 
   const data = await getApiData(lyricsUrl);
   if (!data || !data.lyrics || data.error) {
     clearSuggestions(suggestionsList);
-    lyricsContainer.innerHTML = "<p>Sorry... no lyrics match found.</p>";
+    lyricsContainer.textContent = "Sorry... no lyrics match found.";
     return;
   }
 
   console.log(data.lyrics);
 
-  lyricsContainer.innerHTML = `<pre>${data.lyrics}</pre>`;
+  lyricsContainer.textContent = data.lyrics;
   suggestionsList.classList.add("hidden");
 });
