@@ -15,13 +15,7 @@ function clearSuggestions(list) {
 
 function suggestionsRendering(songs, list, songMap) {
   if (!songs || songs.length === 0) {
-    const noResultsP = document.createElement("li");
-    noResultsP.style.padding = "0.7rem 0.5rem";
-    noResultsP.textContent = "No song or artist were found";
-    noResultsP.setAttribute("aria-disabled", "true");
-    list.innerHTML = "";
-    list.appendChild(noResultsP);
-    list.classList.remove("hidden");
+    noSongsFound(list);
     return;
   }
 
@@ -40,4 +34,14 @@ function suggestionsRendering(songs, list, songMap) {
   });
 }
 
-export { debounce, clearSuggestions, suggestionsRendering };
+function noSongsFound(list) {
+  const noResultsP = document.createElement("li");
+  noResultsP.style.padding = "0.7rem 0.5rem";
+  noResultsP.textContent = "No song or artist were found";
+  noResultsP.setAttribute("aria-disabled", "true");
+  list.innerHTML = "";
+  list.appendChild(noResultsP);
+  list.classList.remove("hidden");
+}
+
+export { debounce, clearSuggestions, suggestionsRendering, noSongsFound };
