@@ -99,6 +99,10 @@ h1 {
   animation: rotation 1s linear infinite;
 }
 
+.active {
+  background-color: #444;
+}
+
 @keyframes rotation {
   from {
     transform: rotate(0deg);
