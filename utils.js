@@ -28,6 +28,7 @@ function suggestionsRendering(songs, list, songMap) {
     li.dataset.suggestion = "true";
     li.setAttribute("role", "option");
     li.setAttribute("aria-selected", "false");
+    li.setAttribute("tabindex", "-1");
 
     songMap.set(li, song);
     list.appendChild(li);
@@ -35,12 +36,12 @@ function suggestionsRendering(songs, list, songMap) {
 }
 
 function noSongsFound(list) {
-  const noResultsP = document.createElement("li");
-  noResultsP.style.padding = "0.7rem 0.5rem";
-  noResultsP.textContent = "No song or artist were found";
-  noResultsP.setAttribute("aria-disabled", "true");
+  const noResultsItem = document.createElement("li");
+  noResultsItem.style.padding = "0.7rem 0.5rem";
+  noResultsItem.textContent = "No song or artist were found";
+  noResultsItem.setAttribute("aria-disabled", "true");
   list.innerHTML = "";
-  list.appendChild(noResultsP);
+  list.appendChild(noResultsItem);
   list.classList.remove("hidden");
 }
 
